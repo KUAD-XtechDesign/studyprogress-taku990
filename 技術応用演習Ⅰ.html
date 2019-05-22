@@ -17,5 +17,130 @@
   <br>アバターは自分のを使っていて、走るスピードを上げています。
   <br>あと、個人的にはフィールドに見えない壁をつけて、家にも当たったら壁に当たったようにしたいと思いました。
   </h3>
+  <br>
+  <br><h1>droneを使ってみた</h1>
+  <br><h2>droneを使って新しい遊びを作る</h2>
+  <br><h2>この授業ではチームで作業しました
+  自分たちの班ではdroneで対決したら面白いのではという考えからdroneでデュエルをやってみようということになりました</h2>
+　<br><h2>↓ルールブック</h2>
+  <br><h3>ドローンデュエル
+
+<必要なもの>
+・ドローン　２機
+・風船(代用も可)    6個〜(1チーム3個〜)
+・風船を取り付けるオブジェクト   風船の数と同じ
+  (例・棒、フラフープ、重り、などなど)
+・机   2つ〜
+
+<人数>
+1チーム  1人〜2,3人
+
+<制限時間>
+1分〜
+
+<ルール>
+・各チーム自陣の風船を３個所持する
+・そして決められた自陣コートに相手に倒されないように風船を配置する
+（この際、障害物や高低差を付けてもよい）
+・準備が出来たらドローンを飛ばして勝負開始
+・２チームがお互い取り付けた風船を倒し合い、先に全ての風船を倒した(又は割った)方の勝ち
+
+<注意点>
+・ドローンに何かカスタムすることは禁止
+・コート範囲を決めるときに周りに注意する
+・地面との高低差がないと地面に近い場合、ドローンのセンサーによって倒せない（割れない）のでちゃんとドローンが風船に当たるか動作チェックしておく
+
+  </h3>
+ <br>
+<br><h2>droneで文字を作る</h2>
+<br><h2>droneで作った文字のコード「J」</h2>
+  <br><h3># 必要なモジュールのインポート
+import socket
+import threading
+import time
+import sys
+# telloのIPアドレスとポート
+tello_address = ('192.168.10.1', 8889)
+# ローカルコンピュータのIPアドレスとポート
+local_address = ('', 9000)
+# コマンドを送るためのUDP接続のの実体化
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+# ローカルアドレスとポートのバインディング
+sock.bind(local_address)
+# telloへのコマンドの送信とディレイタイム（秒）生成関数
+def send(message, delay):
+# 例外が表示されなかった場合，telloにエンコードされたコマンドを送信する
+try:
+sock.sendto(message.encode(), tello_address)
+print("Sending message: " + message)
+except Exception as e:
+print("Error sending: " + str(e))
+# ユーザーが定義した移動待ち時間（秒）
+time.sleep(delay)
+# telloからのメッセージ受信関数
+def receive():
+# telloからのメッセージ受信を常態化
+while True:
+# 例外が表示されなかった場合，受信状態を保つ
+try:
+response, ip_address = sock.recvfrom(128)
+print("Received message: " + response.decode(encoding='utf-8'))
+except Exception as e:
+# もしエラー検出された場合，ソケットを閉じ，ループを終了する
+sock.close()
+print("Error receiving: " + str(e))
+break
+# シークエンス関数
+def sequence():
+# ここにシークエンスを書き込む. 引数は2つで第一引数は"コマンド 移動距離（cm）”，第二引数はディレ#############################################################################################
+send("up 200", 2)
+send("down 150", 2)
+send("right 20", 2)
+send("down 20", 2)
+send("right 20", 2)
+In [ ]:
+send("right 20", 2)
+send("down 20", 2)
+send("right 20", 2)
+send("up 20", 2)
+send("right 20", 2)
+send("up 20", 2)
+send("right 20", 2)
+#############################################################################################
+# ここまでは追記・削除おk．あとはいじらないこと!
+# ここからがメインの実行処理
+# バックグラウンド実行されるスレッドを作り，スタートする
+# これはreceive関数を利用して，telloから送信されたメッセージを常態的に受信する
+receiveThread = threading.Thread(target=receive)
+receiveThread.daemon = True
+receiveThread.start()
+# telloをコマンドモードにセット
+send("command", 3)
+# 離陸コマンドの送信
+send("takeoff", 5)
+# ユーザーのコマンド入力のヘルプを表示
+print('Type in a Tello SDK command and press the enter key. Enter "start" to start sequence. Enter # ユーザーが”quit”もしくは"start"をタイプするか，ctrl+cを押すまで，コマンド入力待ちをループ実行する
+while True:
+try:
+# ユーザーのキーボード入力を読み込み
+message = input('')
+# もしユーザーが”quit”を入力したら，ソケットを閉じアプリケーション終了
+if 'quit' in message:
+# Land
+send("land", 5)
+print("Program exited sucessfully")
+sock.close()
+break
+# もしユーザーが”start”を入力したら，シークエンス開始
+elif 'start' in message:
+sequence()
+message = ''
+# telloにコマンドを送信
+send(message, 3)
+# ctrl+cの入力があった場合の制御
+except KeyboardInterrupt as e:
+send("land", 5)
+sock.close()
+break</h3>
   </body>
 </html>
