@@ -25,122 +25,122 @@
 　<br><h2>↓ルールブック</h2>
   <br><h3>ドローンデュエル
 
-<必要なもの>
-・ドローン　２機
-・風船(代用も可)    6個〜(1チーム3個〜)
-・風船を取り付けるオブジェクト   風船の数と同じ
-  (例・棒、フラフープ、重り、などなど)
-・机   2つ〜
-
-<人数>
-1チーム  1人〜2,3人
-
-<制限時間>
-1分〜
-
-<ルール>
-・各チーム自陣の風船を３個所持する
-・そして決められた自陣コートに相手に倒されないように風船を配置する
-（この際、障害物や高低差を付けてもよい）
-・準備が出来たらドローンを飛ばして勝負開始
-・２チームがお互い取り付けた風船を倒し合い、先に全ての風船を倒した(又は割った)方の勝ち
-
-<注意点>
-・ドローンに何かカスタムすることは禁止
-・コート範囲を決めるときに周りに注意する
-・地面との高低差がないと地面に近い場合、ドローンのセンサーによって倒せない（割れない）のでちゃんとドローンが風船に当たるか動作チェックしておく
-
+<br><必要なもの>
+<br>・ドローン　２機
+<br>・風船(代用も可)    6個〜(1チーム3個〜)
+<br>・風船を取り付けるオブジェクト   風船の数と同じ
+<br>  (例・棒、フラフープ、重り、などなど)
+<br>・机   2つ〜
+<br>
+<br><人数>
+<br>1チーム  1人〜2,3人
+<br>
+<br><制限時間>
+<br>1分〜
+<br>
+<br><ルール>
+<br>・各チーム自陣の風船を３個所持する
+<br>・そして決められた自陣コートに相手に倒されないように風船を配置する
+<br>（この際、障害物や高低差を付けてもよい）
+<br>・準備が出来たらドローンを飛ばして勝負開始
+<br>・２チームがお互い取り付けた風船を倒し合い、先に全ての風船を倒した(又は割った)方の勝ち
+<br>
+<br><注意点>
+<br>・ドローンに何かカスタムすることは禁止
+<br>・コート範囲を決めるときに周りに注意する
+<br>・地面との高低差がないと地面に近い場合、ドローンのセンサーによって倒せない（割れない）のでちゃんとドローンが風船に当たるか動作チェックしておく
+<br>
   </h3>
  <br>
 <br><h2>droneで文字を作る</h2>
 <br><h2>droneで作った文字のコード「J」</h2>
   <br><h3># 必要なモジュールのインポート
-import socket
-import threading
-import time
-import sys
-# telloのIPアドレスとポート
-tello_address = ('192.168.10.1', 8889)
-# ローカルコンピュータのIPアドレスとポート
-local_address = ('', 9000)
-# コマンドを送るためのUDP接続のの実体化
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-# ローカルアドレスとポートのバインディング
-sock.bind(local_address)
-# telloへのコマンドの送信とディレイタイム（秒）生成関数
-def send(message, delay):
-# 例外が表示されなかった場合，telloにエンコードされたコマンドを送信する
-try:
-sock.sendto(message.encode(), tello_address)
-print("Sending message: " + message)
-except Exception as e:
-print("Error sending: " + str(e))
-# ユーザーが定義した移動待ち時間（秒）
-time.sleep(delay)
-# telloからのメッセージ受信関数
-def receive():
-# telloからのメッセージ受信を常態化
-while True:
-# 例外が表示されなかった場合，受信状態を保つ
-try:
-response, ip_address = sock.recvfrom(128)
-print("Received message: " + response.decode(encoding='utf-8'))
-except Exception as e:
-# もしエラー検出された場合，ソケットを閉じ，ループを終了する
-sock.close()
-print("Error receiving: " + str(e))
-break
-# シークエンス関数
-def sequence():
-# ここにシークエンスを書き込む. 引数は2つで第一引数は"コマンド 移動距離（cm）”，第二引数はディレ#############################################################################################
-send("up 200", 2)
-send("down 150", 2)
-send("right 20", 2)
-send("down 20", 2)
-send("right 20", 2)
-In [ ]:
-send("right 20", 2)
-send("down 20", 2)
-send("right 20", 2)
-send("up 20", 2)
-send("right 20", 2)
-send("up 20", 2)
-send("right 20", 2)
-#############################################################################################
-# ここまでは追記・削除おk．あとはいじらないこと!
-# ここからがメインの実行処理
-# バックグラウンド実行されるスレッドを作り，スタートする
-# これはreceive関数を利用して，telloから送信されたメッセージを常態的に受信する
-receiveThread = threading.Thread(target=receive)
-receiveThread.daemon = True
-receiveThread.start()
-# telloをコマンドモードにセット
-send("command", 3)
-# 離陸コマンドの送信
-send("takeoff", 5)
-# ユーザーのコマンド入力のヘルプを表示
-print('Type in a Tello SDK command and press the enter key. Enter "start" to start sequence. Enter # ユーザーが”quit”もしくは"start"をタイプするか，ctrl+cを押すまで，コマンド入力待ちをループ実行する
-while True:
-try:
-# ユーザーのキーボード入力を読み込み
-message = input('')
-# もしユーザーが”quit”を入力したら，ソケットを閉じアプリケーション終了
-if 'quit' in message:
-# Land
-send("land", 5)
-print("Program exited sucessfully")
-sock.close()
-break
-# もしユーザーが”start”を入力したら，シークエンス開始
-elif 'start' in message:
-sequence()
-message = ''
-# telloにコマンドを送信
-send(message, 3)
-# ctrl+cの入力があった場合の制御
-except KeyboardInterrupt as e:
-send("land", 5)
-sock.close()
-break</h3>
+<br>import socket
+<br>import threading
+<br>import time
+<br>import sys
+<br># telloのIPアドレスとポート
+<br>tello_address = ('192.168.10.1', 8889)
+<br># ローカルコンピュータのIPアドレスとポート
+<br>local_address = ('', 9000)
+<br># コマンドを送るためのUDP接続のの実体化
+<br>sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+<br># ローカルアドレスとポートのバインディング
+<br>sock.bind(local_address)
+<br># telloへのコマンドの送信とディレイタイム（秒）生成関数
+<br>def send(message, delay):
+<br># 例外が表示されなかった場合，telloにエンコードされたコマンドを送信する
+<br>try:
+<br>sock.sendto(message.encode(), tello_address)
+<br>print("Sending message: " + message)
+<br>except Exception as e:
+<br>print("Error sending: " + str(e))
+<br># ユーザーが定義した移動待ち時間（秒）
+<br>time.sleep(delay)
+<br># telloからのメッセージ受信関数
+<br>def receive():
+<br># telloからのメッセージ受信を常態化
+<br>while True:
+<br># 例外が表示されなかった場合，受信状態を保つ
+<br>try:
+<br>response, ip_address = sock.recvfrom(128)
+<br>print("Received message: " + response.decode(encoding='utf-8'))
+<br>except Exception as e:
+<br># もしエラー検出された場合，ソケットを閉じ，ループを終了する
+<br>sock.close()
+<br>print("Error receiving: " + str(e))
+<br>break
+<br># シークエンス関数
+<br>def sequence():
+<br># ここにシークエンスを書き込む. 引数は2つで第一引数は"コマンド 移動距離（cm）”，第二引数はディレ#############################################################################################
+<br>send("up 200", 2)
+<br>send("down 150", 2)
+<br>send("right 20", 2)
+<br>send("down 20", 2)
+<br>send("right 20", 2)
+<br>In [ ]:
+<br>send("right 20", 2)
+<br>send("down 20", 2)
+<br>send("right 20", 2)
+<br>send("up 20", 2)
+<br>send("right 20", 2)
+<br>send("up 20", 2)
+<br>send("right 20", 2)
+<br>#############################################################################################
+<br># ここまでは追記・削除おk．あとはいじらないこと!
+<br># ここからがメインの実行処理
+<br># バックグラウンド実行されるスレッドを作り，スタートする
+<br># これはreceive関数を利用して，telloから送信されたメッセージを常態的に受信する
+<br>receiveThread = threading.Thread(target=receive)
+<br>receiveThread.daemon = True
+<br>receiveThread.start()
+<br># telloをコマンドモードにセット
+<br>send("command", 3)
+<br># 離陸コマンドの送信
+<br>send("takeoff", 5)
+<br># ユーザーのコマンド入力のヘルプを表示
+<br>print('Type in a Tello SDK command and press the enter key. Enter "start" to start sequence. Enter # ユーザーが”quit”もしくは"start"をタイプするか，ctrl+cを押すまで，コマンド入力待ちをループ実行する
+<br>while True:
+<br>try:
+<br># ユーザーのキーボード入力を読み込み
+<br>message = input('')
+<br># もしユーザーが”quit”を入力したら，ソケットを閉じアプリケーション終了
+<br>if 'quit' in message:
+<br># Land
+<br>send("land", 5)
+<br>print("Program exited sucessfully")
+<br>sock.close()
+<br>break
+<br># もしユーザーが”start”を入力したら，シークエンス開始
+<br>elif 'start' in message:
+<br>sequence()
+<br>message = ''
+<br># telloにコマンドを送信
+<br>send(message, 3)
+<br># ctrl+cの入力があった場合の制御
+<br>except KeyboardInterrupt as e:
+<br>send("land", 5)
+<br>sock.close()
+<br>break</h3>
   </body>
 </html>
