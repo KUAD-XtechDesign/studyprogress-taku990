@@ -143,7 +143,216 @@
 <br>sock.close()
 <br>break</h3>
 <br>
-<br><h2><a href="index.html">戻る</a></h2>
 <br>
+<br>
+<br>
+<br>
+<br><iframe width="560" height="315" src="https://www.youtube.com/embed/G0XY6vhL0tc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br>
+<br><h2><a href="https://kuadxtech.slack.com/files/UA1LYNREH/FKHN8PN11/_____________________.pdf">プレゼン資料</a></h2>
+<br>
+<br>
+<br><!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<title>Test IoT - sakura.io</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<script src="https://sabae.cc/sakura/fukuno.js"></script>
+<script src="https://sabae.cc/sakura/sakura.js"></script>
+<script src="https://sabae.cc/sakura/sakura-setting-2.js"></script>
+<script>
+​
+window.onload = function() {
+	var sakura = new Sakuras([SAKURA_TOKEN, SAKURA_TOKEN2], function(id, val) {
+		console.log(id + " から " + val + " を受信！")
+		if (id == "d07") {
+			if (val == 1) {
+				mes1.textContent = "盛り上がってるよ！"
+				mes1.style.backgroundColor = "red"
+			} else if (val == 2) {
+				mes1.textContent = "過疎ってるなう"
+				mes1.style.backgroundColor = "blue"
+			}
+		}
+		if (id == "d08") {
+			if (val == 1) {
+				mes2.textContent = "盛り上がってるよ！"
+				mes2.style.backgroundColor = "red"
+			} else if (val == 2) {
+				mes2.textContent = "過疎ってるなう"
+				mes2.style.backgroundColor = "blue"
+			}
+		}
+		if (id == "d09") {
+			if (val == 1) {
+				mes3.textContent = "盛り上がってるよ！"
+				mes3.style.backgroundColor = "red"
+			} else if (val == 2) {
+				mes3.textContent = "過疎ってるなう"
+				mes3.style.backgroundColor = "blue"
+			}
+		}
+​
+	})
+  btn1.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 100)
+	}
+	btn2.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 200)
+	}
+	btn3.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 300)
+	}
+	btn4.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 400)
+	}
+	btn5.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 500)
+	}
+	btn6.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 600)
+	}
+	btn7.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 700)
+	}
+	btn8.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 800)
+	}
+	btn9.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 900)
+	}
+	btn10.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 1000)
+	}
+	btn11.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 1100)
+	}
+	btn12.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 1200)
+	}
+	btn13.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 1300)
+	}
+	btn14.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 1400)
+	}
+	btn15.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 1500)
+	}
+	btn16.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 1600)
+	}
+	btn17.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 1700)
+	}
+	btn18.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 1800)
+	}
+	btn19.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 1900)
+	}
+	btn20.onclick = function() {
+//		alert("送信したよ！")
+	    sakura.send("d07", 2000)
+	}
+​
+}
+</script>
+<style>
+body {
+	font-family: sans-serif;
+	text-align: center;
+	margin-top: 40vh;
+}
+#mes1 {
+	background: green;
+	position: absolute;
+	top: 0vh;
+	padding-top: 11vh;
+	width: 27vw;
+	height: 29vh;
+	left: 37vw;
+​
+}
+  #mes2 {
+	background: red;
+	position: absolute;
+	top: 0vh;
+	padding-top: 11vh;
+	width: 26.6vw;
+	height: 29vh;
+	left: 10.1vw;
+​
+}
+#mes3 {
+	background: blue;
+	position: absolute;
+	top: 0vh;
+	padding-top: 11vh;
+	width: 27.8vw;
+	height: 29vh;
+	right: 7.6vw;
+​
+}
+#kamogawa {
+	width: 100vw;
+​
+}
+</style>
+</head>
+<body>
+​
+​
+​
+	<div id=mes1>2</div>
+	<div id=mes2>1</div>
+	<div id=mes3>3</div>
+	<img src="kamogawa.jpg" id=kamogawa>
+​
+<button id=btn1>1</button>
+<button id=btn2>2</button>
+<button id=btn3>3</button>
+<button id=btn4>4</button>
+<button id=btn5>5</button>
+<button id=btn6>6</button>
+<button id=btn7>7</button>
+<button id=btn8>8</button>
+<button id=btn9>9</button>
+<button id=btn10>10</button>
+<button id=btn11>11</button>
+<button id=btn12>12</button>
+<button id=btn13>13</button>
+<button id=btn14>14</button>
+<button id=btn15>15</button>
+<button id=btn16>16</button>
+<button id=btn17>17</button>
+<button id=btn18>18</button>
+<button id=btn19>19</button>
+<button id=btn20>20</button>
+</body>
+</html>
+<br>
+<br><h2><a href="index.html">戻る</a></h2>
   </body>
 </html>
